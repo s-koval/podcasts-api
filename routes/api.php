@@ -20,4 +20,7 @@ $api->version('v1', function ($api) {
     $api->patch('podcast/{id}', 'App\API\V1\Controllers\PodcastController@update')->name('podcast.update');
     $api->delete('podcast/{id}', 'App\API\V1\Controllers\PodcastController@destroy')->name('podcast.destroy');
     $api->post('approve-podcast/{id}', 'App\API\V1\Controllers\PodcastController@approvePodcast')->name('podcast.approve');
+
+    $api->post('comment/{podcast_id}', 'App\API\V1\Controllers\CommentController@store')->name('comment.store');
+    $api->post('flag-comment/{comment_id}', 'App\API\V1\Controllers\CommentController@flagComment')->name('comment.flag');
 });
