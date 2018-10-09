@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+    $api->get('podcasts/{status}', 'App\API\V1\Controllers\PodcastController@index')->name('podcast.index');
+    $api->get('podcast/{id}', 'App\API\V1\Controllers\PodcastController@show')->name('podcast.show');
+    $api->post('podcast/create', 'App\API\V1\Controllers\PodcastController@store')->name('podcast.store');
+    $api->patch('podcast/{id}', 'App\API\V1\Controllers\PodcastController@update')->name('podcast.update');
+    $api->delete('podcast/{id}', 'App\API\V1\Controllers\PodcastController@destroy')->name('podcast.destroy');
+    $api->post('approve-podcast/{id}', 'App\API\V1\Controllers\PodcastController@approvePodcast')->name('podcast.approve');
 });
